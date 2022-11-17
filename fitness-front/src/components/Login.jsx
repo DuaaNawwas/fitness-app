@@ -78,12 +78,12 @@ export default function Login() {
 				<span>{loginData.errors.password}</span>
 			</div>
 
-			<Button
+			<button
 				type="submit"
-				className="bg-grape hover:bg-main hover:text-black hover:border-grape mt-2"
+				className="focus:outline-none text-white  focus:ring-4 focus:ring-main font-medium rounded-lg text-sm px-5 py-2.5 mb-2 d bg-grape hover:bg-main hover:text-black hover:border-2 hover:border-grape mt-2 box-border"
 			>
 				Login
-			</Button>
+			</button>
 		</form>
 	);
 }

@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Search({ handleSearch }) {
 	return (
-		<form className="w-3/4 md:w-1/4">
+		<form className="w-3/4 xl:w-1/4">
 			<label
 				for="default-search"
 				className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"

@@ -1,36 +1,11 @@
-import axios from "axios";
-import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/authcontext";
+import React from "react";
+import SideNav from "../components/SideNav";
 
 export default function Home() {
-	const { cookies, removeCookie } = useContext(AuthContext);
-	const navigate = useNavigate();
-
-	const handleLogout = () => {
-		// axios.get("/sanctum/csrf-cookie").then((response) => {
-		axios
-			.get("/api/logout", {
-				headers: {
-					Authorization: `Bearer ${cookies.Token}`,
-				},
-			})
-			.then((res) => {
-				removeCookie("Token");
-
-				navigate("/register");
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-		// });
-	};
-	const { user } = useContext(AuthContext);
 	return (
 		<>
-			<button onClick={handleLogout}>Logout</button>
-			<div>
-				{user.name} <br /> {user.email}
+			<div className="md:flex gap-8 pb-20 md:pb-5 pt-2">
+				<SideNav />
 			</div>
 		</>
 	);

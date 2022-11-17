@@ -11,6 +11,7 @@ module.exports = {
 				grape: "rgba(134, 58, 111, 1)",
 				creamy: "rgba(255, 255, 255, 0.68)",
 			},
+			display: ["group-hover"],
 		},
 	},
 	plugins: [require("flowbite/plugin")],

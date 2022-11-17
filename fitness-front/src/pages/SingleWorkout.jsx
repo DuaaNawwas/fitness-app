@@ -17,5 +17,9 @@ export default function SingleWorkout() {
 				setWorkoutData(res.data);
 			});
 	}, []);
-	return <SideNav />;
+	return (
+		<div className="md:flex gap-8 pb-20 md:pb-5 pt-2">
+			<SideNav />
+		</div>
+	);
 }

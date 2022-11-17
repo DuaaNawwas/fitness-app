@@ -6,3 +6,8 @@ body {
 	background-color: rgba(217, 137, 181, 0.32);
 	/* overflow-y: hidden; */
 }
+
+button[aria-selected="true"] {
+	color: rgba(134, 58, 111, 1);
+	border-color: rgba(134, 58, 111, 1);
+}

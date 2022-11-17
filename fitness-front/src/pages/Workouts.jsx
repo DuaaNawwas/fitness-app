@@ -14,16 +14,18 @@ export default function Workouts() {
 	const [searchItems, setSearchItems] = useState([]);
 	// Category filter state
 	const [categoryItems, setCategoryItems] = useState();
+	const shuffledCategs = categoryItems?.sort((a, b) => 0.5 - Math.random());
 	// Pagination states
 	const [currentPage, setCurrentPage] = useState(1);
 	const [recordsPerPage] = useState(20);
 	const indexOfLastRecord = currentPage * recordsPerPage;
 	const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
 	const currentRecords = allData?.slice(indexOfFirstRecord, indexOfLastRecord);
-	const currentSearchRecords = searchItems?.slice(
+	const currentCategoryRecords = shuffledCategs?.slice(
 		indexOfFirstRecord,
 		indexOfLastRecord
 	);
+	const currentSearchRecords = searchItems?.slice(indexOfFirstRecord);
 	const nPages = Math.ceil(allData?.length / recordsPerPage);
 
 	// Fetch workouts from api
@@ -34,7 +36,10 @@ export default function Workouts() {
 			})
 			.then((res) => {
 				console.log(res);
-				setAllData(res.data.results);
+				const englishData = res.data.results.filter(
+					(item) => item.language.id == 2
+				);
+				setAllData(englishData);
 			});
 	}, []);
 
@@ -64,12 +69,20 @@ export default function Workouts() {
 		setCategoryItems(data);
 	};
 
+	// useEffect(() => {
+	// 	console.log("DATA ARE HERE");
+	// 	console.log(categoryItems);
+	// }, [categoryItems]);
+	// console.log(" THE DATA ");
+	// // hi
+	// console.log(categoryItems);
+
 	return (
 		<>
 			<div className="md:flex gap-8 pb-20 md:pb-5 pt-2">
 				<SideNav />
 				<div className="flex flex-col px-10 pb-0 pt-1 gap-3">
-					<div className="flex items-center justify-between">
+					<div className="flex flex-wrap gap-2 xl:flex-nowrap items-center justify-center xl:justify-between">
 						<Search handleSearch={handleSearch} />
 						<CategoriesFilter
 							allData={allData}
@@ -80,14 +93,14 @@ export default function Workouts() {
 					<div className="grid gap-2 grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 						{searchItems
 							? currentSearchRecords.map((workout) => {
-									return <WorkoutCard workout={workout} />;
+									return <WorkoutCard workout={workout} key={workout.id} />;
 							  })
-							: // : categoryItems
-							  // ? categoryItems.map((workout) => {
-							  // 		return <WorkoutCard workout={workout} />;
-							  //   })
-							  currentRecords?.map((workout) => {
-									return <WorkoutCard workout={workout} />;
+							: categoryItems.length > 0
+							? currentCategoryRecords.map((workout) => {
+									return <WorkoutCard workout={workout} key={workout.id} />;
+							  })
+							: currentRecords?.map((workout) => {
+									return <WorkoutCard workout={workout} key={workout.id} />;
 							  })}
 					</div>
 
@@ -95,7 +108,7 @@ export default function Workouts() {
 						currentPage={currentPage}
 						onPageChange={(e) => setCurrentPage(e)}
 						showIcons={true}
-						totalPages={20}
+						totalPages={12}
 						className="self-center"
 					/>
 				</div>

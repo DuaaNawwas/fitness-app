@@ -8,6 +8,11 @@ import Login from "./components/Login";
 import Registration from "./pages/Registration";
 import Workouts from "./pages/Workouts";
 import SingleWorkout from "./pages/SingleWorkout";
+import BMI from "./pages/BMI";
+import UserDashboard from "./pages/UserDashboard";
+import SideNav from "./components/SideNav";
+import Unauthorized from "./pages/Unauthorized";
+import NotFound from "./pages/NotFound";
 
 axios.defaults.baseURL = "http://localhost:8000/";
 axios.defaults.headers.post["Content-Type"] = "application/vnd.api+json";
@@ -22,9 +27,13 @@ function App() {
 			<AuthProvider>
 				<Routes>
 					<Route path="/" element={<Home />} />
-					<Route path="/register" element={<Registration />} />
 					<Route path="/workouts" element={<Workouts />} />
 					<Route path="/workouts/:id" element={<SingleWorkout />} />
+					<Route path="/bmi" element={<BMI />} />
+					<Route path="/profile" element={<UserDashboard />} />
+					<Route path="/register" element={<Registration />} />
+					<Route path="/403" element={<Unauthorized />} />
+					<Route path="*" element={<NotFound />} />
 				</Routes>
 			</AuthProvider>
 		</GoogleOAuthProvider>
