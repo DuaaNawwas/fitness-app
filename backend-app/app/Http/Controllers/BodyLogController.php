@@ -66,16 +66,6 @@ class BodyLogController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -84,9 +74,15 @@ class BodyLogController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, BodyLog $bodyLog)
     {
-        //
+        if (Auth::user()->id !== $bodyLog->user_id) {
+            return $this->error('', 'You are not authorized to make this request', 403);
+        }
+
+        $bodyLog->update($request->all());
+
+        return new BodyLogResource($bodyLog);
     }
 
     /**

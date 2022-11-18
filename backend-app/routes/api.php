@@ -28,7 +28,7 @@ Route::post('/googleLogin', [AuthController::class, 'googleLogin']);
 
 // Protected routes
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::resource('/logs', BodyLogController::class);
+    Route::resource('/bodyLogs', BodyLogController::class);
     Route::resource('/workouts', WorkoutController::class);
     Route::get('/logout', [AuthController::class, 'logout']);
     Route::get('/user', [AuthController::class, 'user']);
