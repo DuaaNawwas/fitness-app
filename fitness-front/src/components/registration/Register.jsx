@@ -2,7 +2,7 @@ import axios from "axios";
 import { Button, Label, TextInput } from "flowbite-react";
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/authcontext";
+import { AuthContext } from "../../context/authcontext";
 import { FcGoogle } from "react-icons/fc";
 
 import { useGoogleLogin } from "@react-oauth/google";

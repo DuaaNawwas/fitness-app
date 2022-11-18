@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { GoogleLogin } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
-import { AuthContext } from "../context/authcontext";
+import { AuthContext } from "../../context/authcontext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 

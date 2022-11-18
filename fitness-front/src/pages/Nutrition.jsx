@@ -1,17 +1,17 @@
-import { useContext } from "react";
-import BmiForm from "../components/bmi/BmiForm";
+import React from "react";
+import NutritionForm from "../components/nutrition/NutritionForm";
 import SideNav from "../components/SideNav";
-import { AuthContext } from "../context/authcontext";
 
-export default function BMI() {
+export default function Nutrition() {
 	return (
 		<div className="md:flex gap-8 pb-24 md:pb-0">
 			<SideNav />
 			<div className="p-10 flex flex-col mx-auto items-center justify-center gap-12">
 				<h1 className="text-5xl text-grape font-black">
-					Calculate Your Body Mass Index
+					Tell Us What You Ate Today!
 				</h1>
-				<BmiForm />
+
+				<NutritionForm />
 			</div>
 		</div>
 	);

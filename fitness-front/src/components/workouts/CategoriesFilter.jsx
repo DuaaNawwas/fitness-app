@@ -72,7 +72,7 @@ export default function CategoriesFilter({
 						/>
 						<label
 							for={cat.name}
-							class="inline-flex justify-between items-center px-5 py-1 w-full text-gray-500 bg-white rounded-lg border-2 border-gray-200 cursor-pointer dark:hover:text-gray-300 peer-checked:border-grape hover:text-gray-600 peer-checked:text-gray-600 hover:bg-gray-50"
+							class="inline-flex justify-between items-center px-3 lg:px-5  py-1 w-full text-gray-500 bg-white rounded-lg border-2 border-gray-200 cursor-pointer dark:hover:text-gray-300 peer-checked:border-grape hover:text-gray-600 peer-checked:text-gray-600 hover:bg-gray-50"
 						>
 							<div class="block">
 								<div class="w-full text-sm font-semibold">{cat.name}</div>

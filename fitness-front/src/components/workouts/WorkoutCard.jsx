@@ -2,11 +2,11 @@ import axios from "axios";
 import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
-import { AuthContext } from "../context/authcontext";
+import { AuthContext } from "../../context/authcontext";
 
 export default function WorkoutCard({ workout }) {
 	const navigate = useNavigate();
-	const { cookies } = useContext(AuthContext);
+	const { cookies, setTab } = useContext(AuthContext);
 	const token = cookies.Token;
 
 	let equips = "";
@@ -30,6 +30,7 @@ export default function WorkoutCard({ workout }) {
 				console.log(res);
 
 				swal("Thank you", "Your data was saved successfully", "success");
+				setTab("workouts");
 				navigate("/profile");
 			});
 	};
@@ -38,8 +39,10 @@ export default function WorkoutCard({ workout }) {
 		<>
 			<div className="bg-white rounded-lg shadow h-28 relative group">
 				<div className="px-5 pt-4 pb-8 flex flex-col gap-1">
-					<p className="text-lg font-bold text-grape">{workout.name}</p>
-					<p className="text-sm font-medium text-gray-500">
+					<p className="text-sm lg:text-lg font-bold text-grape">
+						{workout.name}
+					</p>
+					<p className="text-sm md:text-xs lg:text-sm font-medium text-gray-500">
 						{workout.equipment.map((eq) => {
 							equips += eq.name + ",";
 							return `${eq.name} `;
@@ -75,26 +78,28 @@ export default function WorkoutCard({ workout }) {
 								/>
 							</svg>
 						</Link>
-						<button
-							type="button"
-							onClick={saveWorkout}
-							className="text-white bg-grape hover:bg-pink-400 focus:ring-4 focus:outline-none focus:ring-creamy font-medium rounded-full text-sm p-2.5 text-center  items-center mr-2 inline-flex"
-						>
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								fill="none"
-								viewBox="0 0 24 24"
-								strokeWidth={1.5}
-								stroke="currentColor"
-								className="w-4 h-4"
+						{token && (
+							<button
+								type="button"
+								onClick={saveWorkout}
+								className="text-white bg-grape hover:bg-pink-400 focus:ring-4 focus:outline-none focus:ring-creamy font-medium rounded-full text-sm p-2.5 text-center  items-center mr-2 inline-flex"
 							>
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									d="M12 4.5v15m7.5-7.5h-15"
-								/>
-							</svg>
-						</button>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+									strokeWidth={1.5}
+									stroke="currentColor"
+									className="w-4 h-4"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										d="M12 4.5v15m7.5-7.5h-15"
+									/>
+								</svg>
+							</button>
+						)}
 					</div>
 				</div>
 			</div>

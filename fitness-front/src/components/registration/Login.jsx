@@ -2,7 +2,7 @@ import axios from "axios";
 import { Button, Label, TextInput } from "flowbite-react";
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/authcontext";
+import { AuthContext } from "../../context/authcontext";
 
 export default function Login() {
 	const { user, setUser, setCookie } = useContext(AuthContext);

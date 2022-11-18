@@ -1,11 +1,11 @@
 import axios from "axios";
 import React, { useContext, useRef, useState } from "react";
-import { AuthContext } from "../context/authcontext";
+import { AuthContext } from "../../context/authcontext";
 import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
 
 export default function BmiForm() {
-	const { user, cookies } = useContext(AuthContext);
+	const { user, cookies, setTab } = useContext(AuthContext);
 	const navigate = useNavigate();
 	const [saved, setSaved] = useState(false);
 	const [data, setData] = useState({
@@ -29,7 +29,7 @@ export default function BmiForm() {
 	const saveUserData = () => {
 		axios
 			.post(
-				"/api/logs",
+				"/api/bodyLogs",
 				{ weight: data.weight, bmi: data.BMI },
 				{
 					headers: {
@@ -41,6 +41,7 @@ export default function BmiForm() {
 				console.log(res);
 				setSaved(true);
 				swal("Thank you", "Your data was saved successfully", "success");
+				setTab("logs");
 				navigate("/profile");
 			});
 	};

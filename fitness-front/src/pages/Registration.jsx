@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import GoogleAuth from "../components/GoogleAuth";
-import Login from "../components/Login";
-import Register from "../components/Register";
+import GoogleAuth from "../components/registration/GoogleAuth";
+import Login from "../components/registration/Login";
+import Register from "../components/registration/Register";
 import regimg from "../images/regimg.svg";
 
 export default function Registration() {
@@ -12,7 +12,7 @@ export default function Registration() {
 		<div className="container h-screen flex justify-center mx-auto p-5 lg:p-10">
 			<button
 				onClick={() => navigate("/")}
-				className="text-white bg-grape  focus:ring-4 focus:outline-none focus:ring-creamy font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center absolute left-2 top-2"
+				className="text-white bg-grape  focus:ring-4 focus:outline-none focus:ring-creamy font-medium rounded-full md:rounded-lg text-sm px-2  md:px-5 py-2.5 text-center inline-flex items-center absolute left-2 top-2"
 			>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
@@ -28,7 +28,7 @@ export default function Registration() {
 						d="M21 16.811c0 .864-.933 1.405-1.683.977l-7.108-4.062a1.125 1.125 0 010-1.953l7.108-4.062A1.125 1.125 0 0121 8.688v8.123zM11.25 16.811c0 .864-.933 1.405-1.683.977l-7.108-4.062a1.125 1.125 0 010-1.953L9.567 7.71a1.125 1.125 0 011.683.977v8.123z"
 					/>
 				</svg>
-				Back
+				<span className="hidden md:block">Back</span>
 			</button>
 			<div className="w-1/3 xl:1/4 -mr-12 z-10 h-[93%] self-center bg-grape hidden lg:flex justify-center  rounded-tl-[40px] rounded-tr-[94px] rounded-bl-[43px]">
 				<img

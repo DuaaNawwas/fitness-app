@@ -12,6 +12,8 @@ export default function AuthProvider({ children }) {
 		email: "",
 	});
 
+	const [tab, setTab] = useState("logs");
+
 	useEffect(() => {
 		if (cookies.Token) {
 			axios
@@ -41,6 +43,8 @@ export default function AuthProvider({ children }) {
 				cookies,
 				setCookie,
 				removeCookie,
+				tab,
+				setTab,
 			}}
 		>
 			{children}

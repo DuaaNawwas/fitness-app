@@ -137,3 +137,198 @@ export default function CategoriesFilter({
 //     handleCategory(res.data.results);
 // });
 // to get all exercise from category---------------------------------
+
+import axios from "axios";
+import { Table } from "flowbite-react";
+import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
+import swal from "sweetalert";
+
+export function WeightLog({ token }) {
+	// Save user data
+	const [data, setData] = useState();
+
+	// Show inputs to edit
+	const [showInput, setShowInput] = useState(false);
+
+	// New data to edit
+	const [newValue, setNewValue] = useState();
+
+	// Identify inputs
+	const myRefs = useRef({});
+	const weightRefs = useRef({});
+
+	// Get user data from database
+	useEffect(() => {
+		axios
+			.get("/api/bodyLogs", {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((res) => {
+				console.log(res.data.data);
+				setData(res.data.data);
+			});
+	}, []);
+
+	// Confirm if user wants to delete
+	const alertDel = (id) => {
+		swal({
+			title: "Are you sure?",
+			text: "Once deleted, you will not be able to recover this weight entry!",
+			icon: "warning",
+			buttons: true,
+			dangerMode: true,
+		}).then((willDelete) => {
+			if (willDelete) {
+				deleteLog(id);
+				const newData = data?.filter((i) => i.id != id);
+				setData(newData);
+				swal("Poof! Your weight entry has been deleted!", {
+					icon: "success",
+				});
+			} else {
+				swal("Your weight entry is safe!");
+			}
+		});
+	};
+
+	// Delete a log
+	const deleteLog = (id) => {
+		axios
+			.delete(`/api/bodyLogs/${id}`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((res) => {
+				console.log(res);
+			});
+	};
+
+	// Show specific input
+	const showOneInput = (id) => {
+		if (myRefs.current[id].id == id || weightRefs.current[id].id == id) {
+			setShowInput(id);
+			console.log(id);
+		}
+	};
+
+	// Handle new value
+	const handleNewValue = (id) => {
+		setNewValue(weightRefs.current[id].innerText);
+		editInput(id);
+		setShowInput(false);
+	};
+
+	// console.log(newValue);
+
+	// Edit an input
+	const editInput = (id) => {
+		const col = weightRefs.current[id].title;
+		console.log("hi");
+		console.log(col);
+		const data = { [col]: newValue };
+		axios
+			.put(`/api/bodyLogs/${id}`, data, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((res) => console.log(res));
+	};
+
+	return (
+		<Table hoverable={true}>
+			<Table.Head>
+				<Table.HeadCell>Date</Table.HeadCell>
+				<Table.HeadCell>Weight</Table.HeadCell>
+				<Table.HeadCell>BMI</Table.HeadCell>
+				<Table.HeadCell>
+					<span className="sr-only">Edit</span>
+				</Table.HeadCell>
+				<Table.HeadCell>
+					<span className="sr-only">Delete</span>
+				</Table.HeadCell>
+			</Table.Head>
+			<Table.Body className="divide-y">
+				{data?.map((log) => {
+					return (
+						<Table.Row
+							key={log.id}
+							className="bg-white dark:border-gray-700 dark:bg-gray-800"
+						>
+							<Table.Cell
+								onDoubleClick={() => showOneInput(log.id)}
+								onBlur={() => handleNewValue(log.id)}
+								onClick={() => console.log(myRefs.current[log.id].title)}
+								className={`whitespace-nowrap font-medium text-gray-900 dark:text-white`}
+							>
+								<span
+									type="text"
+									title="created_at"
+									autofocus={true}
+									// onChange={() => setNewValue(myRefs.current[log.id].innerText)}
+									className={`${
+										showInput == log.id
+											? "focus:ring-0 border-t-0 border-x-0 border-b-2 focus:border-grape"
+											: "border-none"
+									} w-auto bg-transparent`}
+									role={`${showInput == log.id ? "textbox" : ""} `}
+									contenteditable={`${showInput == log.id ? "true" : "false"}`}
+									id={log.id}
+									ref={(el) => (myRefs.current[log.id] = el)}
+								>
+									{log.attributes.created_at.split("T")[0]}
+								</span>
+							</Table.Cell>
+
+							<Table.Cell
+								onDoubleClick={() => showOneInput(log.id)}
+								onBlur={() => handleNewValue(log.id)}
+								onClick={() => console.log(weightRefs.current[log.id].title)}
+							>
+								{" "}
+								<span
+									type="number"
+									title="weight"
+									autofocus={true}
+									className={`${
+										showInput == log.id
+											? "focus:ring-0 border-t-0 border-x-0 border-b-2 focus:border-grape"
+											: "border-none"
+									} w-auto bg-transparent`}
+									role={`${showInput == log.id ? "textbox" : ""} `}
+									contenteditable={`${showInput == log.id ? "true" : "false"}`}
+									id={log.id}
+									ref={(el) => (weightRefs.current[log.id] = el)}
+								>
+									{log.attributes.weight}
+								</span>
+							</Table.Cell>
+							<Table.Cell>{log.attributes.bmi}</Table.Cell>
+
+							<Table.Cell>
+								<a
+									href="/tables"
+									className="font-medium text-grape hover:underline "
+								>
+									Edit
+								</a>
+							</Table.Cell>
+							<Table.Cell>
+								<button
+									className="font-medium text-red-500 hover:underline "
+									onClick={() => alertDel(log.id)}
+								>
+									Delete
+								</button>
+							</Table.Cell>
+						</Table.Row>
+					);
+				})}
+			</Table.Body>
+		</Table>
+	);
+}
