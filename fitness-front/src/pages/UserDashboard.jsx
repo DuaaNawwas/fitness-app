@@ -10,7 +10,7 @@ import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import Unauthorized from "./Unauthorized";
 
 export default function UserDashboard() {
-	const { cookies, tab } = useContext(AuthContext);
+	const { cookies, tab, user } = useContext(AuthContext);
 	const token = cookies.Token;
 	const navigate = useNavigate();
 
@@ -21,8 +21,8 @@ export default function UserDashboard() {
 		<div className="md:flex gap-8 pb-24 md:pb-0">
 			<SideNav />
 			<div className="flex flex-col gap-5 items-center mx-auto justify-center p-10">
-				<h1 className="text-5xl text-grape font-black">
-					Welcome To Your Space
+				<h1 className="text-5xl text-grape font-black capitalize">
+					Welcome {user.name}
 				</h1>
 				<Tabs.Group
 					aria-label="Tabs with underline"

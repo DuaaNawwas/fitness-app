@@ -40,7 +40,11 @@ export default function Workouts() {
 			.then((res) => {
 				console.log(res);
 				const englishData = res.data.results.filter(
-					(item) => item.language.id == 2
+					(item) =>
+						item.language.id == 2 &&
+						(item.muscles.length > 0 ||
+							item.description != "" ||
+							item.muscles_secondary.length > 0)
 				);
 				setAllData(englishData);
 				setLoading(false);

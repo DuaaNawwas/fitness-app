@@ -108,8 +108,9 @@ export default function SideNav() {
 						</li>
 						<li>
 							<Link
+								to="/calories"
 								className={`flex items-center p-2 text-base font-normal  rounded-lg  ${
-									location.pathname == "/calc" ? activeNav : inactiveNav
+									location.pathname == "/calories" ? activeNav : inactiveNav
 								}`}
 							>
 								<AiFillCalculator size="22" />
@@ -214,8 +215,9 @@ export default function SideNav() {
 						</Link>
 
 						<Link
+							to="/calories"
 							className={`flex items-center p-2 text-base font-normal  rounded-lg  ${
-								location.pathname == "/calc" ? activeNav : inactiveNav
+								location.pathname == "/calories" ? activeNav : inactiveNav
 							}`}
 						>
 							<AiFillCalculator size="25" />
@@ -243,7 +245,7 @@ export default function SideNav() {
 						) : (
 							<Link
 								to="/register"
-								className="flex items-center p-2 text-base font-normal  rounded-lg  "
+								className={`flex items-center p-2 text-base font-normal  rounded-lg  ${inactiveNav}`}
 							>
 								<FaUserPlus size="25" />
 							</Link>

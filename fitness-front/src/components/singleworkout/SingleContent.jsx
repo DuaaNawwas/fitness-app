@@ -33,6 +33,18 @@ export default function SingleContent({ workoutData }) {
 								</div>
 							</div>
 						</div>
+						{workoutData?.comments.length > 0 && (
+							<div class="group relative mt-4">
+								<div class="mb-1 text-sm font-medium">Notes:</div>
+								<div class="block">
+									<ul>
+										{workoutData?.comments.map((comment, i) => {
+											return <li>{comment.comment}</li>;
+										})}
+									</ul>
+								</div>
+							</div>
+						)}
 
 						<div class="mt-8">
 							{workoutData?.equipment.length > 0 && (
@@ -76,7 +88,7 @@ export default function SingleContent({ workoutData }) {
 								)}
 							</div>
 							<div class="mt-4">
-								{workoutData?.muscles.length > 0 && (
+								{workoutData?.muscles_secondary.length > 0 && (
 									<>
 										<div class="mb-1 text-sm font-medium">
 											Secondary Muscles
@@ -118,8 +130,8 @@ export default function SingleContent({ workoutData }) {
 					<div class="grid grid-cols-2 gap-4 md:grid-cols-1">
 						<img
 							alt=""
-							src={mainImg ? mainImg.image : workoutimg2}
-							class="aspect-square w-full rounded-xl object-fit object-left"
+							src={mainImg ? mainImg.image : workoutimg}
+							class="aspect-square w-full rounded-xl object-fit object-center"
 						/>
 
 						<div class="grid grid-cols-2 gap-4 lg:mt-4">

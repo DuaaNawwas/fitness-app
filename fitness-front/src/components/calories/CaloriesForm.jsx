@@ -1,20 +1,20 @@
 import axios from "axios";
 import React, { useState } from "react";
-import NutritionTable from "./NutritionTable";
+import CaloriesTable from "./CaloriesTable";
 
-export default function NutritionForm() {
+export default function CaloriesForm() {
 	// Take input from user
 	const [query, setQuery] = useState();
 
 	// Save data from api
-	const [foods, setFoods] = useState();
+	const [exercises, setExercises] = useState();
 
 	// Get data from api
 	const getInfo = (e) => {
 		e.preventDefault();
 		axios
 			.post(
-				"https://trackapi.nutritionix.com/v2/natural/nutrients",
+				"https://trackapi.nutritionix.com/v2/natural/exercise",
 				{
 					query: query,
 				},
@@ -30,11 +30,11 @@ export default function NutritionForm() {
 			.then((res) => {
 				console.log(res);
 
-				setFoods(res.data.foods);
+				setExercises(res.data.exercises);
 			})
 			.catch((err) => {
 				console.log(err);
-				setFoods("nofood");
+				setExercises("noexercises");
 			});
 	};
 
@@ -46,7 +46,7 @@ export default function NutritionForm() {
 					name="search"
 					id="search"
 					class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-black appearance-none  focus:outline-none focus:ring-0 focus:border-grape peer text-center placeholder:text-center"
-					placeholder="I ate a slice of pizza and a cup of soda..."
+					placeholder="I ran for an hour..."
 					onChange={(e) => {
 						setQuery(e.target.value);
 					}}
@@ -63,9 +63,9 @@ export default function NutritionForm() {
 					Submit
 				</button>
 			</form>
-			{!foods ? (
+			{!exercises ? (
 				""
-			) : foods === "nofood" ? (
+			) : exercises === "noexercises" ? (
 				<div
 					class="flex p-4 text-sm text-gray-700 bg-gray-100 rounded-lg dark:bg-gray-700 dark:text-gray-300"
 					role="alert"
@@ -86,11 +86,11 @@ export default function NutritionForm() {
 					<span class="sr-only">Info</span>
 					<div>
 						<span class="font-medium">Sorry!</span> Your query didn't match any
-						food!
+						exercise!
 					</div>
 				</div>
 			) : (
-				<NutritionTable foods={foods} />
+				<CaloriesTable exercises={exercises} />
 			)}
 		</div>
 	);

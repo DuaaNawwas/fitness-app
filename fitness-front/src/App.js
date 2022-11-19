@@ -15,6 +15,9 @@ import Unauthorized from "./pages/Unauthorized";
 import NotFound from "./pages/NotFound";
 import Footer from "./components/Footer";
 import Nutrition from "./pages/Nutrition";
+import CaloriesCalc from "./pages/CaloriesCalc";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
 
 axios.defaults.baseURL = "http://localhost:8000/";
 axios.defaults.headers.post["Content-Type"] = "application/vnd.api+json";
@@ -35,6 +38,9 @@ function App() {
 					<Route path="/profile" element={<UserDashboard />} />
 					<Route path="/register" element={<Registration />} />
 					<Route path="/nutrition" element={<Nutrition />} />
+					<Route path="/calories" element={<CaloriesCalc />} />
+					<Route path="/about" element={<About />} />
+					<Route path="/contact" element={<Contact />} />
 					<Route path="/403" element={<Unauthorized />} />
 					<Route path="*" element={<NotFound />} />
 				</Routes>
