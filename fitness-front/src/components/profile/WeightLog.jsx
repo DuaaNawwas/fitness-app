@@ -129,51 +129,55 @@ export default function WeightLog({ token }) {
 
 	return (
 		<>
-			<div className="flex flex-wrap gap-5 items-start justify-center">
-				<Chart
-					options={options}
-					series={series}
-					type="line"
-					width="450"
-					className="hidden md:block"
-				/>
+			{data?.length > 0 ? (
+				<div className="flex flex-wrap gap-5 items-start justify-center">
+					<Chart
+						options={options}
+						series={series}
+						type="line"
+						width="450"
+						className="hidden md:block"
+					/>
 
-				<Table hoverable={true}>
-					<Table.Head>
-						<Table.HeadCell>Date</Table.HeadCell>
-						<Table.HeadCell>Weight</Table.HeadCell>
-						<Table.HeadCell>BMI</Table.HeadCell>
-						<Table.HeadCell>
-							<span className="sr-only">Delete</span>
-						</Table.HeadCell>
-					</Table.Head>
-					<Table.Body className="divide-y">
-						{data?.map((log) => {
-							return (
-								<Table.Row
-									key={log.id}
-									className="bg-white dark:border-gray-700 dark:bg-gray-800"
-								>
-									<Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-										{log.attributes.created_at.split("T")[0]}
-									</Table.Cell>
-									<Table.Cell>{log.attributes.weight}</Table.Cell>
-									<Table.Cell>{log.attributes.bmi}</Table.Cell>
+					<Table hoverable={true}>
+						<Table.Head>
+							<Table.HeadCell>Date</Table.HeadCell>
+							<Table.HeadCell>Weight</Table.HeadCell>
+							<Table.HeadCell>BMI</Table.HeadCell>
+							<Table.HeadCell>
+								<span className="sr-only">Delete</span>
+							</Table.HeadCell>
+						</Table.Head>
+						<Table.Body className="divide-y">
+							{data?.map((log) => {
+								return (
+									<Table.Row
+										key={log.id}
+										className="bg-white dark:border-gray-700 dark:bg-gray-800"
+									>
+										<Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+											{log.attributes.created_at.split("T")[0]}
+										</Table.Cell>
+										<Table.Cell>{log.attributes.weight}</Table.Cell>
+										<Table.Cell>{log.attributes.bmi}</Table.Cell>
 
-									<Table.Cell>
-										<button
-											className="font-medium text-red-500 hover:underline "
-											onClick={() => alertDel(log.id)}
-										>
-											Delete
-										</button>
-									</Table.Cell>
-								</Table.Row>
-							);
-						})}
-					</Table.Body>
-				</Table>
-			</div>
+										<Table.Cell>
+											<button
+												className="font-medium text-red-500 hover:underline "
+												onClick={() => alertDel(log.id)}
+											>
+												Delete
+											</button>
+										</Table.Cell>
+									</Table.Row>
+								);
+							})}
+						</Table.Body>
+					</Table>
+				</div>
+			) : (
+				<h1 className="text-center">You didn't add any data</h1>
+			)}
 		</>
 	);
 }

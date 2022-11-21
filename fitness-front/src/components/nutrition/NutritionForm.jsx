@@ -22,8 +22,8 @@ export default function NutritionForm() {
 					withCredentials: false,
 
 					headers: {
-						"x-app-id": "d6cc6cb1",
-						"x-app-key": "78f8ccc42978b0f10cfb8a1f52aa17fb",
+						"x-app-id": process.env.REACT_APP_NUTRITION_API_ID,
+						"x-app-key": process.env.REACT_APP_NUTRITION_API_KEY,
 					},
 				}
 			)

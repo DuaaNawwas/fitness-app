@@ -11,3 +11,8 @@ button[aria-selected="true"] {
 	color: rgba(134, 58, 111, 1);
 	border-color: rgba(134, 58, 111, 1);
 }
+
+::selection {
+	color: white;
+	background: rgba(134, 58, 111, 1);
+}
