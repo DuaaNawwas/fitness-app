@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\BodyLog;
 use App\Models\Workout;
+use App\Models\CaloriesOut;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -36,6 +37,18 @@ class User extends Authenticatable
     public function workouts()
     {
         return  $this->hasMany(Workout::class);
+    }
+
+    // User - CaloriesOut relationship
+    public function caloriesout()
+    {
+        return  $this->hasMany(CaloriesOut::class);
+    }
+
+    // User - CaloriesIn relationship
+    public function caloriesin()
+    {
+        return  $this->hasMany(CaloriesOut::class);
     }
 
     /**
