@@ -1,13 +1,53 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import swal from "sweetalert";
+import { AuthContext } from "../../context/authcontext";
 import CaloriesTable from "./CaloriesTable";
 
 export default function CaloriesForm() {
+	// Get logged in user
+	const { user, cookies, setTab } = useContext(AuthContext);
+	const token = cookies.Token;
+
+	const navigate = useNavigate();
 	// Take input from user
 	const [query, setQuery] = useState();
 
 	// Save data from api
 	const [exercises, setExercises] = useState();
+
+	// Check if data saved for user
+	const [saved, setSaved] = useState();
+
+	// Save data for user
+	const saveUserCalories = () => {
+		let cals = 0;
+		if (exercises.length === 1) {
+			cals = exercises[0].nf_calories;
+		} else {
+			cals = exercises.reduce((acc, item) => {
+				return acc.nf_calories + item.nf_calories;
+			});
+		}
+		axios
+			.post(
+				"/api/caloriesout",
+				{ calories: cals },
+				{
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				}
+			)
+			.then((res) => {
+				console.log(res);
+				setSaved(true);
+				swal("Thank you", "Your data was saved successfully", "success");
+				setTab("calories");
+				navigate("/profile");
+			});
+	};
 
 	// Get data from api
 	const getInfo = (e) => {
@@ -91,6 +131,17 @@ export default function CaloriesForm() {
 				</div>
 			) : (
 				<CaloriesTable exercises={exercises} />
+			)}
+			{exercises && user.name && (
+				<button
+					onClick={saveUserCalories}
+					type="button"
+					className={`text-white bg-grape hover:bg-creamy hover:text-grape hover:border-2 hover:border-grape focus:ring-4 focus:outline-none focus:ring-grape  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 ${
+						saved ? "hidden" : ""
+					}`}
+				>
+					Save Your Calories
+				</button>
 			)}
 		</div>
 	);

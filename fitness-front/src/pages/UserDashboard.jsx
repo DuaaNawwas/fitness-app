@@ -8,6 +8,7 @@ import WeightLog from "../components/profile/WeightLog";
 import SavedWorkouts from "../components/profile/SavedWorkouts";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import Unauthorized from "./Unauthorized";
+import SavedCalories from "../components/profile/SavedCalories";
 
 export default function UserDashboard() {
 	const { cookies, tab, user } = useContext(AuthContext);
@@ -37,6 +38,9 @@ export default function UserDashboard() {
 						title="Saved Workouts"
 					>
 						<SavedWorkouts token={token} />
+					</Tabs.Item>
+					<Tabs.Item active={tab == "calories" ? true : false} title="Calories">
+						<SavedCalories token={token} />
 					</Tabs.Item>
 				</Tabs.Group>
 			</div>
