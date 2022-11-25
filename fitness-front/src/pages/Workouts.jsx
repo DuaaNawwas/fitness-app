@@ -27,7 +27,10 @@ export default function Workouts() {
 		indexOfFirstRecord,
 		indexOfLastRecord
 	);
-	const currentSearchRecords = searchItems?.slice(indexOfFirstRecord);
+	const currentSearchRecords = searchItems?.slice(
+		indexOfFirstRecord,
+		indexOfLastRecord
+	);
 	const nPages = Math.ceil(allData?.length / recordsPerPage);
 
 	// Fetch workouts from api

@@ -13,7 +13,6 @@ export default function GoogleAuth() {
 		console.log(response);
 		const userObject = jwt_decode(response.credential);
 		//console.log(userObject);
-		localStorage.setItem("user", JSON.stringify(userObject));
 		const { name, sub, picture, email } = userObject;
 		console.log(userObject);
 
